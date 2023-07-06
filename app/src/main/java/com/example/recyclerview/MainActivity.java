@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 String input_nim = edNim.getText().toString();
                 String input_phone = edPhone.getText().toString();
 
+
+
                 if(input_name.isEmpty() || input_nim.isEmpty() || input_phone.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Tidak ada data",Toast.LENGTH_SHORT).show();
                 }else{
@@ -67,26 +69,38 @@ public class MainActivity extends AppCompatActivity {
 
                     boolean stts;
 
-                    if(!isEdit){
-                        mm = new MhsModel(-1, input_name, input_nim, input_phone);
-                        stts = db.simpan(mm);
 
-                        edName.setText("");
-                        edNim.setText("");
-                        edPhone.setText("");
 
-                    }else{
-                        mm = new MhsModel(mm.getId(), input_name, input_nim, input_phone);
-                        stts = db.ubah(mm);
+
+                    mhsList = db.list();
+                    if  (mhsList.size() >= 5) {
+                        Toast.makeText(getApplicationContext(), "Data Tidak Boleh Lebih Dari 5", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+
+                        if (!isEdit) {
+                            mm = new MhsModel(-1, input_name, input_nim, input_phone);
+                            stts = db.simpan(mm);
+
+                            edName.setText("");
+                            edNim.setText("");
+                            edPhone.setText("");
+
+
+                        } else {
+                            mm = new MhsModel(mm.getId(), input_name, input_nim, input_phone);
+                            stts = db.ubah(mm);
+                        }
+
+
+                        if (stts) {
+
+                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Data Gagal diimpan", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
-
-                    if(stts){
-
-                        Toast.makeText(getApplicationContext(),"Data Berhasil Disimpan",Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(),"Data Gagal diimpan",Toast.LENGTH_SHORT).show();
-                    }
 
 
 

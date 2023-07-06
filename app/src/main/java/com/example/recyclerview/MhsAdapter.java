@@ -33,8 +33,24 @@ public class MhsAdapter extends RecyclerView.Adapter<MhsAdapter.MhsVH> {
     }
 
     @Override
+
     public void onBindViewHolder(@NonNull MhsVH holder, int position) {
-        holder.tvNameVal.setText(mhsList.get(position).getName());
+        int evenNumber = 0;
+        if(position == 0) {
+            evenNumber = 1;
+        }else if(position==1) {
+            evenNumber = 3;
+        }else if(position==2) {
+            evenNumber = 5;
+        }else if(position==3) {
+            evenNumber = 7;
+        }else if(position==4) {
+            evenNumber = 9;
+        }else{
+            evenNumber = 00;
+        }
+
+        holder.tvNameVal.setText(evenNumber + ". " + mhsList.get(position).getName());
         holder.tvNimVal.setText(mhsList.get(position).getNim());
         holder.tvPhoneVal.setText(mhsList.get(position).getPhone());
 
